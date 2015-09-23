@@ -85,7 +85,7 @@ int main()
 
 			for (int k = 0; k < quiteSize; k++)
 				finalOutBuffer.push_back(0);
-			cout << finalOutBuffer.size() << "  ";
+		//	cout << finalOutBuffer.size() << "  ";
 		}
 		else
 		{
@@ -108,7 +108,7 @@ int main()
 				finalOutBuffer.push_back(dataResult[k]);
 			for (int kk = pitch.GetFinalSampleCount();kk < note.time * 44100;kk++)
 				finalOutBuffer.push_back(0);
-			cout << finalOutBuffer.size() << "  ";
+		//	cout << finalOutBuffer.size() << "  ";
 
 
 
