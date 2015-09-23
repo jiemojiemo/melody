@@ -62,7 +62,7 @@ int main()
 	int sampleRate = 0;
 	short* buffer = GetDataForDetection( sampleCount, sampleRate);
 
-	////ÈËÉù¼ì²â
+	//ÈËÉù¼ì²â
 
 	//CVoiceDetection detection;
 	//auto segments( detection.Detection(buffer,sampleCount,sampleRate) );
