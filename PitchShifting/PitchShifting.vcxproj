@@ -146,7 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CFFT.h" />
+    <ClInclude Include="FFT.h" />
     <ClInclude Include="pcm2wav.h" />
     <ClInclude Include="pitchshifting.h" />
     <ClInclude Include="scopeguard.h" />
@@ -154,7 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="calcthreshold.cpp" />
-    <ClCompile Include="CFFT.cpp" />
+    <ClCompile Include="FFT.cpp" />
     <ClCompile Include="pcm2wav.cpp" />
     <ClCompile Include="pitchshifting.cpp" />
     <ClCompile Include="PitchShiftingMain.cpp" />

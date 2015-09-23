@@ -7,6 +7,8 @@ using namespace std;
 template <typename T>
 T** New2DArray(int row, int col)
 {
+	assert( row > 0 );
+	assert( col > 0 );
 	auto array2D = new T*[row];
 	for (int i = 0; i < row; ++i)
 	{
@@ -143,6 +145,10 @@ short* CPitchShifting::TimeScalingAndPitchShifting(const Note & note, short* dat
 	m_sampleCount = sampleCount;
 	int pitch = 44100 / note.frequnce;
 	double scale = sampleCount/44100.0/note.time;
+	assert(pitch > 0);
+	assert(scale > 0);
+	//cout << "scale:"<<scale <<"pitch:"<<pitch<< endl;
+
 	//变速变调处理
 	doScalingAndShifting(dataIn, pitch, scale);
 	//将结果转化16bits
@@ -211,7 +217,7 @@ void CPitchShifting::STFT(short * dataIn)
 			frameData.push_back(complex(real));
 		}
 		//做短时傅里叶变化
-		CFFT::fft(m_windowSize, &frameData[0]);
+		FFT::fft(m_windowSize, &frameData[0]);
 		memcpy( m_STFTOut[frameCount], &frameData[0], sizeof(complex)*m_STFTCol );
 		++frameCount;
 	}
@@ -229,8 +235,8 @@ void CPitchShifting::STFT(short * dataIn)
 void CPitchShifting::PVProcess()
 {
 	//变速后的数据长度
-	int scaleLength = (m_STFTRow - 2) / m_scale + 1;
-
+	int scaleLength = (m_STFTRow-2) / m_scale + 1;
+	cout << "scaleLength:" << scaleLength << endl;
 	//用于存放相位变换的结果，后面用于ISTFT
 	m_PVProcessOut = New2DArray<float>(scaleLength, m_STFTCol);
 	//存放相邻的两帧数据,用于计算相位差
@@ -245,7 +251,7 @@ void CPitchShifting::PVProcess()
 	double weight = 0.0;
 	//幅度
 	double magnitude = 0.0;
-	for (int i = 0; i < scaleLength; ++i,++outColCount)
+	for (int i = 0; i < scaleLength-1; ++i,++outColCount)
 	{
 		colCount = GetColCount(i, m_scale);
 		weight = GetWeight( i, m_scale );
@@ -256,7 +262,7 @@ void CPitchShifting::PVProcess()
 		//进行幅度变化
 		for (int j = 0; j < m_STFTCol; ++j)
 		{
-			magnitude = (1 - weight)*CFFT::c_abs(adjacentFrames[0][j]) + weight*CFFT::c_abs(adjacentFrames[1][j]);
+			magnitude = (1 - weight)*FFT::c_abs(adjacentFrames[0][j]) + weight*FFT::c_abs(adjacentFrames[1][j]);
 			m_PVProcessOut[outColCount][j] = magnitude;
 		}
 	}
@@ -300,9 +306,9 @@ void CPitchShifting::ISTFT()
 			frameData[ii] = frameData[m_windowSize - ii - 1];
 
 		//反傅里叶变化
-		CFFT::ifft(m_windowSize, frameData);
+		FFT::ifft(m_windowSize, frameData);
 		//
-		CFFT::fftshift(m_windowSize, frameData);
+		FFT::fftshift(m_windowSize, frameData);
 		//进行叠加
 		for (int k = 0; k < m_windowSize; ++k)
 			m_phaseVocoderOut[i + k] += frameData[k] * synthesizeWindow[k];

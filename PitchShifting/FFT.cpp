@@ -1,9 +1,9 @@
-#include "CFFT.h"
+#include "FFT.h"
 #include <memory>
 
-CFFT::CFFT(){}
-CFFT::~CFFT(){}
-void CFFT::conjugate_complex(int n,complex in[],complex out[])
+FFT::FFT(){}
+FFT::~FFT(){}
+void FFT::conjugate_complex(int n,complex in[],complex out[])
 {
 	int i = 0;
 	for(i=0;i<n;i++)
@@ -13,7 +13,7 @@ void CFFT::conjugate_complex(int n,complex in[],complex out[])
 	}	
 }
 
-void CFFT::c_abs(complex f[],float out[],int size)
+void FFT::c_abs(complex f[],float out[],int size)
 {
 	int i = 0;
 	float t;
@@ -24,30 +24,30 @@ void CFFT::c_abs(complex f[],float out[],int size)
 	}	
 }
 
-double CFFT::c_abs(const complex& f)
+double FFT::c_abs(const complex& f)
 {
 	return sqrt( f.real*f.real + f.imag*f.imag );
 }
 
-void CFFT::c_plus(complex a,complex b,complex *result)
+void FFT::c_plus(complex a,complex b,complex *result)
 {
 	result->real = a.real + b.real;
 	result->imag = a.imag + b.imag;
 }
 
-void CFFT::c_sub(complex a,complex b,complex *result)
+void FFT::c_sub(complex a,complex b,complex *result)
 {
 	result->real = a.real - b.real;
 	result->imag = a.imag - b.imag;	
 }
 
-void CFFT::c_mul(complex a,complex b,complex *result)
+void FFT::c_mul(complex a,complex b,complex *result)
 {
 	result->real = a.real * b.real - a.imag * b.imag;
 	result->imag = a.real * b.imag + a.imag * b.real;	
 }
 
-void CFFT::c_div(complex a,complex b,complex *result)
+void FFT::c_div(complex a,complex b,complex *result)
 {
 	result->real = (a.real * b.real + a.imag * b.imag)/(b.real * b.real +b.imag * b.imag);
 	result->imag = (a.imag * b.real - a.real * b.imag)/(b.real * b.real +b.imag * b.imag);
@@ -55,7 +55,7 @@ void CFFT::c_div(complex a,complex b,complex *result)
 
 #define SWAP(a,b)  tempr=(a);(a)=(b);(b)=tempr
 
-void CFFT::Wn_i(int n,int i,complex *Wn,char flag)
+void FFT::Wn_i(int n,int i,complex *Wn,char flag)
 {
 	Wn->real = cos(2*PI*i/n);
 	if(flag == 1)
@@ -65,7 +65,7 @@ void CFFT::Wn_i(int n,int i,complex *Wn,char flag)
 }
 
 //傅里叶变化
-void CFFT::fft(int N,complex f[])
+void FFT::fft(int N,complex f[])
 {
 	complex t,wn;//中间变量
 	int i,j,k,m,n,l,r,M;
@@ -113,7 +113,7 @@ void CFFT::fft(int N,complex f[])
 }
 
 //傅里叶逆变换
-void CFFT::ifft(int N,complex f[])
+void FFT::ifft(int N,complex f[])
 {
 	int i=0;
 	conjugate_complex(N,f,f);
@@ -126,7 +126,7 @@ void CFFT::ifft(int N,complex f[])
 	}
 }
 
-void CFFT::ifft(int N, float in[])
+void FFT::ifft(int N, float in[])
 {
 	complex *f = new complex[N];
 	for (int i = 0; i < N; i++)
@@ -146,7 +146,7 @@ void CFFT::ifft(int N, float in[])
 
 }
 
-void CFFT::fftshift(int N,float f[])
+void FFT::fftshift(int N,float f[])
 {
 	float* dataTemp = new float[N / 2];
 	memset(dataTemp, 0, N / 2 * sizeof(float));

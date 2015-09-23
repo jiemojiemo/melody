@@ -1,5 +1,5 @@
-#ifndef CFFT_H
-#define CFFT_H
+#ifndef FFT_H
+#define FFT_H
 
 #include "math.h"
 
@@ -12,11 +12,11 @@ typedef struct complex //复数类型
 	float imag;		//虚部
 }complex;
 
-class CFFT
+class FFT
 {
 private:
-	CFFT(const CFFT& cp){}
-	CFFT& operator = (const CFFT& cp){}
+	FFT(const FFT& cp){}
+	FFT& operator = (const FFT& cp){}
 public:
 	static void conjugate_complex(int n,complex in[],complex out[]);//取共轭
 	static void c_plus(complex a,complex b,complex *result);//复数加
@@ -28,8 +28,8 @@ public:
 	static void Wn_i(int n,int i,complex *Wn,char flag);//
 	static void fftshift(int N,float f[]);
 public:
-	CFFT();
-	~CFFT();
+	FFT();
+	~FFT();
 	static void fft(int N,complex f[]);//傅立叶变换 输出也存在数组f中
 	static void ifft(int N,complex f[]); // 傅里叶逆变换	
 	static void ifft(int N, float in[]);
