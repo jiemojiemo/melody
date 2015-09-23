@@ -8,16 +8,16 @@
 
 using namespace std;
 
-//ÒôÀÖÓĞ76¸ö½ÚÅÄ£¬Ã¿¸ö½ÚÅÄµÄÒôµ÷
+//éŸ³ä¹æœ‰76ä¸ªèŠ‚æ‹ï¼Œæ¯ä¸ªèŠ‚æ‹çš„éŸ³è°ƒ
 int musicPitch[76] =
 {
-	0,  63,  0, 63, 0,  63, 0,  63,  0, 63,  0, 63,  0, 63,  0, 67,//Ç°×à
+	0,  63,  0, 63, 0,  63, 0,  63,  0, 63,  0, 63,  0, 63,  0, 67,//å‰å¥
 	65, 65, 65, 65, 65, 65, 63, 65,  0,  0, 65, 65, 66, 65, 63,
 	65, 65, 65, 65, 65, 65, 63, 61, 62, 62, 63, 63, 64, 64, 77,
 	0 , 65, 65, 65, 65, 65, 63, 65, 65,  0, 65, 65, 66, 65, 63,
 	65, 65, 65, 65, 65, 65, 63, 61, 62, 62, 63, 63, 64, 64, 77
 };
-//ÒôÀÖÓĞ76¸ö½ÚÅÄ£¬Ã¿¸ö½ÚÅÄµÄËù¶ÔÓ¦µÄ¸è´ÊÏÂ±ê
+//éŸ³ä¹æœ‰76ä¸ªèŠ‚æ‹ï¼Œæ¯ä¸ªèŠ‚æ‹çš„æ‰€å¯¹åº”çš„æ­Œè¯ä¸‹æ ‡
 int lyric[76] =
 {
 	0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,   0, 1,   0,  1,
@@ -27,17 +27,17 @@ int lyric[76] =
 	8,  1,  1,  1,  1,  1,  1,  1,  2,  3,  4,  5,   6, 7,   8
 
 };
-//ÒôÀÖÓĞ76¸ö½ÚÅÄ£¬Ã¿¸ö½ÚÅÄµÄËù¶ÔÓ¦µÄÊ±³¤
+//éŸ³ä¹æœ‰76ä¸ªèŠ‚æ‹ï¼Œæ¯ä¸ªèŠ‚æ‹çš„æ‰€å¯¹åº”çš„æ—¶é•¿
 int musicTime[76] =
 {
-	12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, //Ç°×à
+	12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, //å‰å¥
 	12,  6,  3, 9,  6,   6,  6,  6,  6, 6,  6,  6,  6,  6,  6,
 	12,  6,  3, 9,  6,   6,  6,  6,  3, 3,  6,  6,  6,  6, 12,
 	12,	 6,  3, 9,  6,   6,  6,  6,  6, 6,  6,  6,  6,  6, 6,
 	12,  6,  3, 9,  6,   6,  6,  6,  3, 3,  6,  6,  6,  6, 12
 };
 
-//Â¼ÒôÓĞ8¸ö¸ö×Ö£¬Ã¿¸ö×Ö¶ÔÓ¦µÄÆğÊ¼Î»ÖÃºÍÖÕÖ¹Î»ÖÃ
+//å½•éŸ³æœ‰8ä¸ªä¸ªå­—ï¼Œæ¯ä¸ªå­—å¯¹åº”çš„èµ·å§‹ä½ç½®å’Œç»ˆæ­¢ä½ç½®
 unsigned long voicePosition[16] =
 {
 	26460,35280,
@@ -49,18 +49,18 @@ unsigned long voicePosition[16] =
 	95850,104690,
 	107370,116275
 };
-//»ñÈ¡ĞèÒªÒôÆµÊı¾İ£¬ÓÃÓÚÈËÉùÆ¬¶ÎµÄ¼ì²â
+//è·å–éœ€è¦éŸ³é¢‘æ•°æ®ï¼Œç”¨äºäººå£°ç‰‡æ®µçš„æ£€æµ‹
 short* GetDataForDetection(int& sampleCount, int& sampleRate);
-//¶Á wav ÎÄ¼ş»ñÈ¡Êı¾İ£¬Ö»ÄÜÓÃÓÚ¼òµ¥Çé¿öµÄwavÎÄ¼ş£¨¼´ÕæÕıÒôÆµÊı¾İ´Ó0x2cÎ»ÖÃ¿ªÊ¼£©
+//è¯» wav æ–‡ä»¶è·å–æ•°æ®ï¼Œåªèƒ½ç”¨äºç®€å•æƒ…å†µçš„wavæ–‡ä»¶ï¼ˆå³çœŸæ­£éŸ³é¢‘æ•°æ®ä»0x2cä½ç½®å¼€å§‹ï¼‰
 short* GetDataForDetectionFromWavFile(const string& fileName, int& sampleCount, int& sampleRate);
-//Í¨¹ıÂ¼Òô»ñÈ¡Êı¾İ
+//é€šè¿‡å½•éŸ³è·å–æ•°æ®
 short* GetDataForDetectionFromRecord(int& sampleCount, int& sampleRate);
 int main()
 {
 	int sampleCount = 0;
 	int sampleRate = 0;
-	//short* buffer = GetDataForDetection( sampleCount, sampleRate);
-	////ÈËÉù¼ì²â
+	short* buffer = GetDataForDetection( sampleCount, sampleRate);
+	////äººå£°æ£€æµ‹
 	//CVoiceDetection detection;
 	//auto segments( detection.Detection(buffer,sampleCount,sampleRate) );
 	//for (auto& i : segments)
@@ -80,7 +80,7 @@ int main()
 	for (int i = 0; i < 76; i++)
 	{
 
-		if (lyric[i] == 0)//Èç¹û¸è´ÊÎª¿Õ£¬ÔòÉèÖÃÒ»¶Î¾²Òô¶Î
+		if (lyric[i] == 0)//å¦‚æœæ­Œè¯ä¸ºç©ºï¼Œåˆ™è®¾ç½®ä¸€æ®µé™éŸ³æ®µ
 		{
 			unsigned long quiteSize = musicTime[i] * 44100 / 24;
 
@@ -94,9 +94,9 @@ int main()
 			note.time = musicTime[i] / 24.0;
 			note.velocity = 1;
 			note.lyric = lyric[i] - 1;
-			//×ÖÔÚÕû¸öÓïÒô¶ÎµÄÎ»ÖÃ
+			//å­—åœ¨æ•´ä¸ªè¯­éŸ³æ®µçš„ä½ç½®
 			unsigned long  distance = voicePositionInSapmple[note.lyric].first;
-			//×ÖµÄ³¤¶È£¬¼´×ÖµÄsampleµÄ¸öÊı
+			//å­—çš„é•¿åº¦ï¼Œå³å­—çš„sampleçš„ä¸ªæ•°
 			int length = (voicePositionInSapmple[note.lyric].second - voicePositionInSapmple[note.lyric].first);
 			auto dataResult = pitch.TimeScalingAndPitchShifting(note, buffer+distance, length);
 
@@ -120,7 +120,7 @@ int main()
 // Method:    GetDataForDetection
 // Parameter@ sampleCount: 
 // Parameter@ sampleRate: 
-// Returns short*:Êı¾İÄÚ´æµÄÖ¸Õë
+// Returns short*:æ•°æ®å†…å­˜çš„æŒ‡é’ˆ
 // Comment:   
 // Creator:	  HW
 // Modifier:  
@@ -133,9 +133,9 @@ short* GetDataForDetection(int& sampleCount, int& sampleRate)
 
 //************************************
 // Method:    GetDataForDetectionFromWavFile
-// Parameter@ fileName: wavÎÄ¼şÃû 
+// Parameter@ fileName: wavæ–‡ä»¶å 
 // Returns short*:   
-// Comment:   Ôİ¶¨Ö»ÄÜ¶Á 16bit µ¥ÉùµÀwavÎÄ¼ş
+// Comment:   æš‚å®šåªèƒ½è¯» 16bit å•å£°é“wavæ–‡ä»¶
 // Creator:	  HW
 // Modifier:  
 //************************************
@@ -162,13 +162,13 @@ short* GetDataForDetectionFromWavFile(const string& fileName, int& sampleCount, 
 //************************************
 // Method:    GetDataForDetectionFromRecord
 // Returns:   float*
-// Comment:   Â¼ÒôÔİÊ±¶¨Îª 16bit µ¥ÉùµÀ 44.1hz£¬ÒòÎªÊ¹ÓÃÆäËû²ÎÊıµÄÂ¼Òô£¬ºóÆÚ´¦ÀíÓĞÒ»Ğ©ÎÊÌâ
+// Comment:   å½•éŸ³æš‚æ—¶å®šä¸º 16bit å•å£°é“ 44.1hzï¼Œå› ä¸ºä½¿ç”¨å…¶ä»–å‚æ•°çš„å½•éŸ³ï¼ŒåæœŸå¤„ç†æœ‰ä¸€äº›é—®é¢˜
 // Creator:	  HW
 // Modifier:  
 //************************************
 short* GetDataForDetectionFromRecord(int& sampleCount, int& sampleRate)
 {
-	////ÉèÖÃÂ¼ÒôµÄ²ÎÊı ÔİÊ±¶¨Îª 16bit µ¥ÉùµÀ 44.1hz
+	////è®¾ç½®å½•éŸ³çš„å‚æ•° æš‚æ—¶å®šä¸º 16bit å•å£°é“ 44.1hz
 	//RecordParameters recordParams;
 	//recordParams.audioFormat = AUDIO_SIN16;
 	//recordParams.framesPerBuffer = 512;
@@ -176,7 +176,7 @@ short* GetDataForDetectionFromRecord(int& sampleCount, int& sampleRate)
 	//recordParams.nSeconds = 5;
 	//recordParams.sampleRate = 44100;
 
-	////¿ªÊ¼Â¼Òô
+	////å¼€å§‹å½•éŸ³
 	//CRecord<short> recorder(recordParams);
 	//recorder.Start();
 
@@ -184,7 +184,7 @@ short* GetDataForDetectionFromRecord(int& sampleCount, int& sampleRate)
 	//sampleCount = recorder.GetTotalSamples();
 	//sampleRate = recordParams.sampleRate;
 
-	////shortÊı¾İ --> floatÊı¾İ,ºóÆÚ´¦ÀíĞèÒªÓÃfloatÊı¾İ½øĞĞ
+	////shortæ•°æ® --> floatæ•°æ®,åæœŸå¤„ç†éœ€è¦ç”¨floatæ•°æ®è¿›è¡Œ
 	//float* buffer = Bit16toBit32(recorder.GetDataPointer(), recorder.GetTotalSamples());
 	//return buffer;
 	return nullptr;
