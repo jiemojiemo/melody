@@ -5,51 +5,11 @@
 #include <iostream>
 #include <vector>
 #include "CWavread.h"
-
+#include "music.h"
+using namespace Imyours;
 using namespace std;
 
-//音乐有76个节拍，每个节拍的音调
-int musicPitch[82] =
-{
-	0,  63,  0, 63, 0,  63, 0,  63,  0, 63,  0, 63,  0, 63,  0, 67,//前奏
-	65, 65, 65, 65, 65, 65, 65, 63, 65,  0,  0, 65, 65, 66, 65, 63,
-	65, 65, 65, 65, 65, 65, 65, 63, 61, 62, 62, 63, 63, 63, 64, 64, 77,
-	0 , 65, 65, 65, 65, 65, 65, 63, 65, 65,  0, 65, 65, 66, 65, 63,
-	65, 65, 65, 65, 65, 65, 65, 63, 61, 62, 62, 63, 63, 63, 64, 64, 77,
-};
-//音乐有76个音符，每个音符的所对应的歌词下标
-int lyric[82] =
-{
-	0,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1,   0, 1,   0,  1,
-	1,  2,  3,  3,  4,  5,  6,  7,  8,  0,  0,  1,  1,   2, 3,   6,
-	7,  8,  6,  7,  7,  8,  8,  8,  8,  8,  8,  8,  8,   8, 8,   8,   8,
-	0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  2,  3,   6, 7,   8,
-	8,  1,  1,  1,  1,  1,  1,  1,  1,  2,  3,  4,  5,   5, 6,   7,   8,  
 
-};
-
-//音乐有76个节拍，每个节拍的所对应的时长
-int musicTime[82] =
-{
-	12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, //前奏
-	12,  6,  3, 3,  6,   6,  6,  6,  6, 6,  6,  6,  6,  6,  6,  6,
-	12,  6,  3, 3,  6,   6,  6,  6,  6, 3,  3,  6,  3,  3,  6,  6,   12,
-	12,	 6,  3, 3,  6,   6,  6,  6,  6, 6,  6,  6,  6,  6,  6,  6,
-	12,  6,  3, 3,  6,   6,  6,  6,  6, 3,  3,  6,  3,  3,  6,  6,   12,
-};
-
-//褰曢煶鏈?涓釜瀛楋紝姣忎釜瀛楀搴旂殑璧峰浣嶇疆鍜岀粓姝綅缃?
-unsigned long voicePosition[16] =
-{
-	26460,35280,
-	35280,44100,
-	44100,52920,
-	70569,74198,
-	74198,82235,
-	82235,95850,
-	95850,104690,
-	107370,116275
-};
 //鑾峰彇闇�瑕侀煶棰戞暟鎹紝鐢ㄤ簬浜哄０鐗囨鐨勬娴?
 short* GetDataForDetection(int& sampleCount, int& sampleRate);
 //璇?wav 鏂囦欢鑾峰彇鏁版嵁锛屽彧鑳界敤浜庣畝鍗曟儏鍐电殑wav鏂囦欢锛堝嵆鐪熸闊抽鏁版嵁浠?x2c浣嶇疆寮�濮嬶級
@@ -76,11 +36,11 @@ int main()
 	vector<short> finalOutBuffer;
 	vector<pair< unsigned long, unsigned long>> voicePositionInSapmple;
 
-	for (int i = 0; i < 16; i = i + 2)
-		voicePositionInSapmple.push_back(pair<unsigned long, unsigned long>(voicePosition[i], voicePosition[i + 1]));
+	for (int i = 0; i < voiceCnt; i = i + 2)
+		voicePositionInSapmple.push_back(pair<unsigned long, unsigned long>(voicePosition[i]+1500, voicePosition[i + 1]+1500));
 
 
-	for (int i = 0; i < 82; i++)
+	for (int i = 0; i < noteCnt; i++)
 	{
 
 		if (lyric[i] == 0)//如果歌词为空，则设置一段静音段
@@ -103,6 +63,7 @@ int main()
 			//}
 			note.velocity = 1;
 			note.lyric = lyric[i] - 1;
+			cout << "lyric:" << note.lyric << "  time:" << note.time << "  freq:" << note.frequnce;
 			//瀛楀湪鏁翠釜璇煶娈电殑浣嶇疆
 			unsigned long  distance = voicePositionInSapmple[note.lyric].first;
 			//瀛楃殑闀垮害锛屽嵆瀛楃殑sample鐨勪釜鏁?
@@ -143,7 +104,7 @@ int main()
 short* GetDataForDetection(int& sampleCount, int& sampleRate)
 {
 	//return GetDataForDetectionFromRecord(sampleCount, sampleRate);
-	return GetDataForDetectionFromWavFile("demo1.wav", sampleCount, sampleRate);
+	return GetDataForDetectionFromWavFile("demo2.wav", sampleCount, sampleRate);
 }
 
 //************************************
