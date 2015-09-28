@@ -236,7 +236,7 @@ void CPitchShifting::PVProcess()
 {
 	//变速后的数据长度
 	int scaleLength = (m_STFTRow-2) / m_scale + 1;
-	cout << "scaleLength:" << scaleLength << endl;
+	//cout << "scaleLength:" << scaleLength << endl;
 	//用于存放相位变换的结果，后面用于ISTFT
 	m_PVProcessOut = New2DArray<float>(scaleLength, m_STFTCol);
 	//存放相邻的两帧数据,用于计算相位差
@@ -316,4 +316,6 @@ void CPitchShifting::ISTFT()
 
 	//将m_phaseVocoderOut的内存管理交个deleter
 	m_deleter.push_back([&] {LOG("delete m_phaseVocoderOut\n"); delete[] m_phaseVocoderOut; });
+
+	cout << "  finalSample:"<<m_finalSampleCount << endl;
 }
